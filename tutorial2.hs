@@ -76,7 +76,9 @@ decipherStr n (char:text)
 
 -- 10.
 contains :: String -> String -> Bool
-contains = undefined
+contains [] [] = True
+contains [] _ = False
+contains word subset = not (null [x | x <- [0..(length word)], isPrefixOf subset (drop x word)])
 
 -- 11.
 candidates :: String -> [(Int, String)]
