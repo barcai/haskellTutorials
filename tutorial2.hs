@@ -27,13 +27,17 @@ makeKey n = zip ['A'..'Z'] (rotate n ['A'..'Z'])
 
 -- 4.
 lookUp :: Char -> [(Char, Char)] -> Char
-lookUp = undefined
+lookUp character keys = case [y| (x,y) <- keys, x == toUpper character] of
+	                         [y] -> y
+	                         [] -> character
 
 lookUpRec :: Char -> [(Char, Char)] -> Char
-lookUpRec = undefined
+lookUpRec c [] = c
+lookUpRec character ((x,y):xs) | toUpper character == x = y
+                           | otherwise = lookUpRec character xs
 
 prop_lookUp :: Char -> [(Char, Char)] -> Bool
-prop_lookUp = undefined
+prop_lookUp character keys = lookUp character keys == lookUpRec character keys
 
 -- 5.
 encipher :: Int -> Char -> Char
