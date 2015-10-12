@@ -23,7 +23,7 @@ prop_rotate k str = rotate (l - m) (rotate m str) == str
 
 -- 3. 
 makeKey :: Int -> [(Char, Char)]
-makeKey = undefined
+makeKey n = zip ['A'..'Z'] (rotate n ['A'..'Z'])
 
 -- 4.
 lookUp :: Char -> [(Char, Char)] -> Char
