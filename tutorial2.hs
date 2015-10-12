@@ -49,17 +49,19 @@ normalize text = filter (isAlphaNum) $ map (toUpper) text
 
 -- 7.
 encipherStr :: Int -> String -> String
-encipherStr = undefined
+encipherStr n text = map (encipher n) (normalize text)
 
 -- 8.
 reverseKey :: [(Char, Char)] -> [(Char, Char)]
-reverseKey = undefined
+reverseKey key = [(char2, char1) | (char1, char2) <- key]
 
 reverseKeyRec :: [(Char, Char)] -> [(Char, Char)]
-reverseKeyRec = undefined
+reverseKeyRec [] = []
+reverseKeyRec ((char1, char2):key) = (char2, char1) : reverseKeyRec key
 
 prop_reverseKey :: [(Char, Char)] -> Bool
-prop_reverseKey = undefined
+prop_reverseKey key = reverseKey key == reverseKeyRec key
+
 -- 9.
 decipher :: Int -> Char -> Char
 decipher = undefined
