@@ -13,6 +13,7 @@ rotate :: Int -> [Char] -> [Char]
 rotate n xs | n < 0 = error "Your number is smaller than 0"
             | n > length xs = error "Your number is too large"
             | otherwise = drop n xs ++ take n xs
+-- Example: rotate 5 " catsI love" -> "I love cats"
 
 -- 2.
 prop_rotate :: Int -> String -> Bool
