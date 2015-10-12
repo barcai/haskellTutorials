@@ -64,10 +64,15 @@ prop_reverseKey key = reverseKey key == reverseKeyRec key
 
 -- 9.
 decipher :: Int -> Char -> Char
-decipher = undefined
+decipher n character = lookUpRec character (reverseKeyRec (makeKey n))
 
 decipherStr :: Int -> String -> String
-decipherStr = undefined
+decipherStr _ [] = []
+decipherStr n (char:text)
+          | char `elem` ['A'..'Z'] = decipher n char : decipherStr n text
+          | char `elem` ['0'..'9'] = char : decipherStr n text
+          | char == ' ' = char : decipherStr n text
+          | otherwise = decipherStr n text
 
 -- 10.
 contains :: String -> String -> Bool
