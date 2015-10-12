@@ -82,7 +82,8 @@ contains word subset = not (null [x | x <- [0..(length word)], isPrefixOf subset
 
 -- 11.
 candidates :: String -> [(Int, String)]
-candidates = undefined
+candidates text = [(x, decipherStr x text) | x <- [1..26], check (decipherStr x text)]
+                  where check string = contains string "THE" || contains string "AND"
 
 
 
