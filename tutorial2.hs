@@ -98,7 +98,7 @@ splitEachFive text | length (take 5 text) == 5 = take 5 text : splitEachFive (dr
 
 -- 13.
 prop_transpose :: String -> Bool
-prop_transpose = undefined
+prop_transpose text = splitEachFive text == transpose (transpose (splitEachFive text))
 
 -- 14.
 encrypt :: Int -> String -> String
