@@ -117,8 +117,15 @@ decrypt n text = decipherStr n (putBackTogether (transpose (chunksOf ((length te
 -- Challenge (Optional)
 
 -- 16.
+helper :: String -> [(Char, Int)]
+helper text = rmDup [(char,0) | char <- text]
+             where
+              rmDup [] = []
+              rmDup (x:xs) = x : rmDup (filter (\y -> not(x == y)) xs)
+
 countFreqs :: String -> [(Char, Int)]
-countFreqs = undefined
+countFreqs [] = []
+countFreqs (char:text) = undefined
 
 -- 17
 freqDecipher :: String -> [String]
