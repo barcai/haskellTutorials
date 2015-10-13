@@ -91,7 +91,10 @@ candidates text = [(x, decipherStr x text) | x <- [1..26], check (decipherStr x 
 
 -- 12.
 splitEachFive :: String -> [String]
-splitEachFive = undefined
+splitEachFive [] = []
+splitEachFive text | length (take 5 text) == 5 = take 5 text : splitEachFive (drop 5 text)
+                   | otherwise = (text ++ replicate (5 - length (take 5 text)) 'X') : splitEachFive (drop 5 text)
+
 
 -- 13.
 prop_transpose :: String -> Bool
