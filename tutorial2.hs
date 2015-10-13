@@ -5,6 +5,7 @@
 
 import Data.Char
 import Data.List
+import Data.List.Split
 import Test.QuickCheck
 
 
@@ -101,15 +102,17 @@ prop_transpose :: String -> Bool
 prop_transpose text = splitEachFive text == transpose (transpose (splitEachFive text))
 
 -- 14.
+--helper
+putBackTogether :: [String] -> String
+putBackTogether [] = []
+putBackTogether (x:xs) = x ++ putBackTogether xs
+--main function
 encrypt :: Int -> String -> String
 encrypt n text = putBackTogether $ (transpose (splitEachFive (encipherStr n text)))
-               where
-                putBackTogether [] = []
-                putBackTogether (x:xs) = x ++ putBackTogether xs
 
 -- 15.
 decrypt :: Int -> String -> String
-decrypt = undefined
+decrypt n text = decipherStr n (putBackTogether (transpose (chunksOf ((length text) `div` 5) text)))
 
 -- Challenge (Optional)
 
