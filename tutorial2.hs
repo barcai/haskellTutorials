@@ -102,7 +102,10 @@ prop_transpose text = splitEachFive text == transpose (transpose (splitEachFive 
 
 -- 14.
 encrypt :: Int -> String -> String
-encrypt = undefined
+encrypt n text = putBackTogether $ (transpose (splitEachFive (encipherStr n text)))
+               where
+                putBackTogether [] = []
+                putBackTogether (x:xs) = x ++ putBackTogether xs
 
 -- 15.
 decrypt :: Int -> String -> String
