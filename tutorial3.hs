@@ -96,37 +96,41 @@ productRec []     = 1
 productRec (x:xs) = x * productRec xs
 
 productFold :: [Int] -> Int
-productFold = undefined
+productFold numbers = foldr (*) 1 numbers
 
 prop_product :: [Int] -> Bool
 prop_product xs = productRec xs == productFold xs
 
 -- b.
 andRec :: [Bool] -> Bool
-andRec = undefined
+andRec [] = True
+andRec (x:xs) = x && andRec xs
 
 andFold :: [Bool] -> Bool
-andFold = undefined
+andFold xs = foldr (&&) True xs
 
 prop_and :: [Bool] -> Bool
 prop_and xs = andRec xs == andFold xs 
 
 -- c.
 concatRec :: [[a]] -> [a]
-concatRec = undefined
+concatRec [] = []
+concatRec (element:list) = element ++ concatRec list
 
 concatFold :: [[a]] -> [a]
-concatFold = undefined
+concatFold list = foldr (++) [] list
 
 prop_concat :: [String] -> Bool
 prop_concat strs = concatRec strs == concatFold strs
 
 -- d.
 rmCharsRec :: String -> String -> String
-rmCharsRec = undefined
+rmCharsRec _ [] = []
+rmCharsRec [] text2 = text2
+rmCharsRec (char:text1) text2 = rmCharsRec text1 $ rmChar char text2
 
 rmCharsFold :: String -> String -> String
-rmCharsFold = undefined
+rmCharsFold text1 text2 = foldr (rmChar) text2 text1
 
 prop_rmChars :: String -> String -> Bool
 prop_rmChars chars str = rmCharsRec chars str == rmCharsFold chars str
