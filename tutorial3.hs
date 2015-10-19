@@ -11,22 +11,22 @@ import Test.QuickCheck
 -- 1. Map
 -- a.
 uppers :: String -> String
-uppers = undefined
+uppers text = map (toUpper) text
 
 -- b.
 doubles :: [Int] -> [Int]
-doubles = undefined
+doubles xs = map (*2) xs
 
 -- c.        
 penceToPounds :: [Int] -> [Float]
-penceToPounds = undefined
+penceToPounds xs = map (\x -> fromIntegral x / 100) xs
 
 -- d.
 uppers' :: String -> String
-uppers' = undefined
+uppers' text = [toUpper character | character <- text]
 
 prop_uppers :: String -> Bool
-prop_uppers = undefined
+prop_uppers text = uppers text == uppers' text
 
 
 
