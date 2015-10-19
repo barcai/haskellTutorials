@@ -33,26 +33,26 @@ prop_uppers text = uppers text == uppers' text
 -- 2. Filter
 -- a.
 alphas :: String -> String
-alphas = undefined
+alphas text = filter isAlpha text
 
 -- b.
 rmChar ::  Char -> String -> String
-rmChar = undefined
+rmChar char text = filter (\x -> x /= (toLower char) && x /= (toUpper char)) text
 
 -- c.
 above :: Int -> [Int] -> [Int]
-above = undefined
+above least numbers  = filter (\x -> x > least) numbers
 
 -- d.
 unequals :: [(Int,Int)] -> [(Int,Int)]
-unequals = undefined
+unequals pairs = filter (\(x,y) -> x /= y) pairs
 
 -- e.
 rmCharComp :: Char -> String -> String
-rmCharComp = undefined
+rmCharComp char text = [textChar | textChar <- text, textChar /= toLower char, textChar /= toUpper char]
 
 prop_rmChar :: Char -> String -> Bool
-prop_rmChar = undefined
+prop_rmChar char text = rmChar char text == rmCharComp char text
 
 
 
