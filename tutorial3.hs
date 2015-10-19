@@ -143,17 +143,28 @@ type Matrix = [[Int]]
 -- 5
 -- a.
 uniform :: [Int] -> Bool
-uniform = undefined
+uniform matrix = all (\x -> x == matrix !! 0) matrix
 
 -- b.
 valid :: Matrix -> Bool
-valid = undefined
+valid [] = False
+valid matrix = uniform [length x | x <- matrix]
 
 -- 6.
+-- a) 18
+
+-- b)
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' func list1 list2 = [func x y | (x,y) <- zip list1 list2]
+
+-- c)
+zipWith'' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith'' function list1 list2 = map (uncurry function) $ zip list1 list2
 
 -- 7.
 plusM :: Matrix -> Matrix -> Matrix
-plusM = undefined
+plusM m1 m2 = zipWith (addRows) m1 m2
+             where addRows xs ys = zipWith (+) xs ys
 
 -- 8.
 timesM :: Matrix -> Matrix -> Matrix
