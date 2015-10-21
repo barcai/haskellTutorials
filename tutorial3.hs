@@ -4,6 +4,7 @@
 -- Week 5 - Due: 22/23 Oct.
 
 import Data.Char
+import Data.List
 import Test.QuickCheck
 
 
@@ -167,8 +168,13 @@ plusM m1 m2 = zipWith (addRows) m1 m2
              where addRows xs ys = zipWith (+) xs ys
 
 -- 8.
+-- dot product
+dot :: [Int] -> [Int] -> Int
+dot vector1 vector2 = sum $ zipWith (*) vector1 vector2
+
 timesM :: Matrix -> Matrix -> Matrix
-timesM = undefined
+timesM m1 m2 = [[dot rows cols | cols <- transpose m2]
+                | rows <- m1]
 
 -- Optional material
 -- 9.
