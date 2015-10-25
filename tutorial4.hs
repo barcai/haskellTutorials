@@ -71,7 +71,8 @@ sameString :: String -> String -> Bool
 sameString [] [] = True
 sameString [] _ = False
 sameString _ [] = False
-sameString (char1:text1) (char2:text2) | toLower char1 /= toLower char2 = False
+sameString (char1:text1) (char2:text2) | toLower char1 /= toLower char2 || 
+                                         toUpper char1 /= toUpper char2 = False
                                        | otherwise = sameString text1 text2
 
 
@@ -80,7 +81,7 @@ prefix :: String -> String -> Bool
 prefix [] [] = True
 prefix [] _ = True
 prefix _ [] = False
-prefix (c1:pref) (c2:text) | toLower c1 == toLower c2 = prefix pref text
+prefix (c1:pref) (c2:text) | toLower c1 == toLower c2 || toUpper c1 == toUpper c2 = prefix pref text
                            | otherwise = False
 
 prop_prefix_pos :: String -> Int -> Bool
@@ -96,10 +97,13 @@ prop_prefix_neg str n = sameString str substr || (not $ prefix str substr)
         
 -- 3.
 contains :: String -> String -> Bool
-contains = undefined
+contains text sub = sum [1 | x <- [0..(length text)], prefix sub $ drop x text] /= 0
 
 prop_contains :: String -> Int -> Int -> Bool
-prop_contains = undefined
+prop_contains str m n = contains (map toLower str) substr &&
+          contains (map toUpper str) substr
+                    where
+                      substr = take n (drop m str)
 
 
 -- 4.
