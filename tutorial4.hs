@@ -86,7 +86,7 @@ prefix (c1:pref) (c2:text) | toLower c1 == toLower c2 || toUpper c1 == toUpper c
 
 prop_prefix_pos :: String -> Int -> Bool
 prop_prefix_pos str n =  prefix substr (map toLower str) &&
-		         prefix substr (map toUpper str)
+             prefix substr (map toUpper str)
                            where
                              substr  =  take n str
 
@@ -108,10 +108,14 @@ prop_contains str m n = contains (map toLower str) substr &&
 
 -- 4.
 takeUntil :: String -> String -> String
-takeUntil = undefined
+takeUntil _ [] = ""
+takeUntil sub (c:text) | prefix sub (c:text) = ""
+                       | otherwise = c : takeUntil sub text
 
 dropUntil :: String -> String -> String
-dropUntil = undefined
+dropUntil _ [] = ""
+dropUntil sub (c:text) | prefix sub (c:text) = drop (length sub - 1) text
+                       | otherwise = dropUntil sub text
 
 
 -- 5.
