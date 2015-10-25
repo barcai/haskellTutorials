@@ -68,7 +68,11 @@ emailsByNameFromURL url name =
 
 -- 1.
 sameString :: String -> String -> Bool
-sameString = undefined
+sameString [] [] = True
+sameString [] _ = False
+sameString _ [] = False
+sameString (char1:text1) (char2:text2) | toLower char1 /= toLower char2 = False
+                                       | otherwise = sameString text1 text2
 
 
 -- 2.
