@@ -132,7 +132,7 @@ reconstruct sub text = foldr (\listelem str -> if str /= "" then listelem ++ sub
 prop_split :: Char -> String -> String -> Bool
 prop_split c sep str = reconstruct sep' (split sep' str) `sameString` str
   where sep' = c : sep
--- No explanation, it works, YOLO
+  
 
 -- 6.
 linksFromHTML :: HTML -> [Link]
