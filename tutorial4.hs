@@ -120,14 +120,19 @@ dropUntil sub (c:text) | prefix sub (c:text) = drop (length sub - 1) text
 
 -- 5.
 split :: String -> String -> [String]
-split = undefined
+split [] _ = error "Splitter string has to be something"
+split _ [] = [""]
+split splitter text 
+  | text `contains` splitter = [takeUntil splitter text] ++ split (splitter) (dropUntil splitter text)
+  | otherwise = [text]
 
 reconstruct :: String -> [String] -> String
-reconstruct = undefined
+reconstruct sub text = foldr (\listelem str -> if str /= "" then listelem ++ sub ++ str else listelem) "" text
 
 prop_split :: Char -> String -> String -> Bool
 prop_split c sep str = reconstruct sep' (split sep' str) `sameString` str
   where sep' = c : sep
+-- No explanation, it works, YOLO
 
 -- 6.
 linksFromHTML :: HTML -> [Link]
