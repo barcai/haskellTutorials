@@ -77,7 +77,11 @@ sameString (char1:text1) (char2:text2) | toLower char1 /= toLower char2 = False
 
 -- 2.
 prefix :: String -> String -> Bool
-prefix = undefined
+prefix [] [] = True
+prefix [] _ = True
+prefix _ [] = False
+prefix (c1:pref) (c2:text) | toLower c1 == toLower c2 = prefix pref text
+                           | otherwise = False
 
 prop_prefix_pos :: String -> Int -> Bool
 prop_prefix_pos str n =  prefix substr (map toLower str) &&
