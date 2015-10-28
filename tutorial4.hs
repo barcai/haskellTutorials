@@ -3,7 +3,7 @@
 --
 -- Due: the tutorial of week 6 (22/23 Oct)
 
-import Data.List (nub)
+import Data.List
 import Data.Char
 import Test.QuickCheck
 import Network.HTTP (simpleHTTP,getRequest,getResponseBody)
@@ -144,17 +144,19 @@ testLinksFromHTML  =  linksFromHTML testHTML == testLinks
 
 -- 7.
 takeEmails :: [Link] -> [Link]
-takeEmails = undefined
+takeEmails list = filter (\x -> prefix "mailto" x) list
 
 
 -- 8.
 link2pair :: Link -> (Name, Email)
-link2pair = undefined
+link2pair link | not $ prefix "mailto:" link = error "This is fucking wrong"
+               | otherwise = (takeUntil "</a>" $ dropUntil "\">" link, 
+                              takeUntil "\">" $ dropUntil "mailto:" link)
 
 
 -- 9.
 emailsFromHTML :: HTML -> [(Name,Email)]
-emailsFromHTML = undefined
+emailsFromHTML html = nub $ map (link2pair) (takeEmails $ linksFromHTML html)
 
 testEmailsFromHTML :: Bool
 testEmailsFromHTML  =  emailsFromHTML testHTML == testAddrBook
@@ -162,12 +164,12 @@ testEmailsFromHTML  =  emailsFromHTML testHTML == testAddrBook
 
 -- 10.
 findEmail :: Name -> [(Name, Email)] -> [(Name, Email)]
-findEmail = undefined
+findEmail searched list = [(name,email) | (name,email) <- list, name `contains` searched]
 
 
 -- 11.
 emailsByNameFromHTML :: HTML -> Name -> [(Name,Email)]
-emailsByNameFromHTML = undefined
+emailsByNameFromHTML html searched = findEmail searched (emailsFromHTML html)
 
 
 -- Optional Material
