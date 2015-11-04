@@ -41,7 +41,11 @@ isBloodOrange (Orange variety _) | variety `elem` ["Tarocco", "Moro", "Sanguinel
 
 -- 2.
 bloodOrangeSegments :: [Fruit] -> Int
-bloodOrangeSegments = undefined
+bloodOrangeSegments [] = 0
+bloodOrangeSegments (fruit:fruitList)
+    | isBloodOrange fruit = case fruit of
+      Orange _ segments -> segments + bloodOrangeSegments fruitList
+    | otherwise = bloodOrangeSegments fruitList
 
 -- 3.
 worms :: [Fruit] -> Int
