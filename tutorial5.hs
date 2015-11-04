@@ -35,7 +35,9 @@ instance Show Fruit where
 
 -- 1.
 isBloodOrange :: Fruit -> Bool
-isBloodOrange = undefined
+isBloodOrange (Apple _ _) = False
+isBloodOrange (Orange variety _) | variety `elem` ["Tarocco", "Moro", "Sanguinello"] = True
+                                 | otherwise = False
 
 -- 2.
 bloodOrangeSegments :: [Fruit] -> Int
