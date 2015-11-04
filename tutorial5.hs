@@ -49,7 +49,12 @@ bloodOrangeSegments (fruit:fruitList)
 
 -- 3.
 worms :: [Fruit] -> Int
-worms = undefined
+worms [] = 0
+worms (f:fruitList)
+    | containsWorm f = 1 + worms fruitList
+    | otherwise = worms fruitList
+        where containsWorm (Apple _ True) = True
+              containsWorm f = False
 
 -- Implementing propositional logic in Haskell
 -- The datatype 'Prop'
