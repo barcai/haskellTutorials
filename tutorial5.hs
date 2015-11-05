@@ -168,7 +168,7 @@ subformulas = undefined -- map(showProp) $ stuff
 -- 9.
 -- check for negation normal form
 isNNF :: Prop -> Bool
-isNNF = undefined
+isNNF p | length (names p)
 
 -- 10.
 -- convert to negation normal form

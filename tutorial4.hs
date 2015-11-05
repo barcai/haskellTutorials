@@ -64,6 +64,7 @@ emailsByNameFromURL url name =
      putStr (ppAddrBook emails)
 
 -- </system interaction>
+
 -- <exercises>
 
 -- 1.
@@ -176,7 +177,7 @@ emailsByNameFromHTML html searched = findEmail searched (emailsFromHTML html)
 
 -- 12.
 hasInitials :: String -> Name -> Bool
-hasInitials = undefined
+hasInitials initials name = initials == map (toUpper) (head (transpose (split " " name)))
 
 -- 13.
 emailsByMatchFromHTML :: (Name -> Bool) -> HTML -> [(Name, Email)]
