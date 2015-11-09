@@ -37,7 +37,8 @@ size Leaf = 0
 size (Node _ _ left right) = 1 + size left + size right
 
 depth :: Ord k => Keymap k a -> Int
-depth = undefined
+depth Leaf = 0
+depth (Node _ _ left right) = max (1 + depth left) (1 + depth right)
 
 -- Exercise 7
 

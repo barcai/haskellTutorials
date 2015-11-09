@@ -8,7 +8,7 @@ import System.Random
 
 -- Importing the keymap module
 
-import KeymapList
+import KeymapTree
 
 
 -- Type declarations
