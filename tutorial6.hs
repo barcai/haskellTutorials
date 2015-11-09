@@ -42,17 +42,20 @@ formatLine :: Int -> (Barcode, Item) -> String
 formatLine len (code, (prod, unit)) = code ++ "..." ++ prod ++ (replicate (len - length prod + 3) '.') ++ unit
 
 showCatalogue :: Catalogue -> String
-showCatalogue = undefined
+showCatalogue cat = foldr (++) "" [formatLine (longestProductLen (toList cat)) list ++ "\n"| list <- (toList cat)]
      
 -- Exercise 2
 maybeToList :: Maybe a -> [a]
-maybeToList = undefined
+maybeToList (Just a) = [a]
+maybeToList Nothing = []
 
 listToMaybe :: [a] -> Maybe a
-listToMaybe = undefined
+listToMaybe [] = Nothing
+listToMaybe xs = Just (head xs)
 
 catMaybes :: [Maybe a] -> [a]
-catMaybes = undefined
+catMaybes [] = []
+catMaybes (x:xs) = maybeToList x ++ catMaybes xs 
 
 -- Exercise 3
 
