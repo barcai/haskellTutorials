@@ -159,8 +159,12 @@ prop_equivalent p1 p2 = equivalent p1 p2 == equivalent' p1 p2
 
 -- 8.
 subformulas :: Prop -> [Prop]
-subformulas = undefined -- map(showProp) $ stuff
-  -- where stuff = undefined -- I have no idea what to do
+subformulas (Not p) = (Not p) : nub (subformulas p)
+subformulas (p :&: q) = (p :&: q) : nub (subformulas p ++ subformulas q)
+subformulas (p :|: q) = (p :|: q) : nub (subformulas p ++ subformulas q)
+subformulas (p :->: q) = (p :->: q) : nub (subformulas p ++ subformulas q)
+subformulas (p :<->: q) = (p :<->: q) : nub (subformulas p ++ subformulas q)
+subformulas p = [p]
 
 
 -- Optional Material
@@ -168,7 +172,7 @@ subformulas = undefined -- map(showProp) $ stuff
 -- 9.
 -- check for negation normal form
 isNNF :: Prop -> Bool
-isNNF p | length (names p)
+isNNF = undefined
 
 -- 10.
 -- convert to negation normal form
