@@ -36,10 +36,10 @@ testDB = fromList [
 -- Exercise 1
 
 longestProductLen :: [(Barcode, Item)] -> Int
-longestProductLen = undefined
+longestProductLen cat = maximum [length y | (x,(y,z)) <- cat]
 
 formatLine :: Int -> (Barcode, Item) -> String
-formatLine = undefined
+formatLine len (code, (prod, unit)) = code ++ "..." ++ prod ++ (replicate (len - length prod + 3) '.') ++ unit
 
 showCatalogue :: Catalogue -> String
 showCatalogue = undefined
