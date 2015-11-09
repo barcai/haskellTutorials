@@ -60,7 +60,9 @@ catMaybes (x:xs) = maybeToList x ++ catMaybes xs
 -- Exercise 3
 
 getItems :: [Barcode] -> Catalogue -> [Item]
-getItems = undefined
+getItems barcodes cat = catMaybes list
+    where
+        list = [get barcode cat | barcode <- barcodes] 
 
 
 
