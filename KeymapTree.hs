@@ -59,7 +59,12 @@ set key value = f
 -- Exercise 9
 
 get :: Ord k => k -> Keymap k a -> Maybe a
-get = undefined
+get key = f
+    where
+      f Leaf = Nothing
+      f (Node k v left right) | key == k  = Just v
+                              | key <= k  = get key left
+                              | otherwise = get key right
 
 prop_set_get :: Int -> Int -> Bool
 prop_set_get k v = get k (set k v testTree) == Just v
