@@ -43,8 +43,9 @@ depth (Node _ _ left right) = max (1 + depth left) (1 + depth right)
 -- Exercise 7
 
 toList :: Ord k => Keymap k a -> [(k,a)]
-toList = undefined
-
+toList Leaf = []
+toList (Node k v left right) = toList left ++ [(k,v)] ++ toList right
+ 
 -- Exercise 8
 
 set :: Ord k => k -> a -> Keymap k a -> Keymap k a
