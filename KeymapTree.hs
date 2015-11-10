@@ -53,8 +53,8 @@ set key value = f
     where
       f Leaf = Node key value Leaf Leaf
       f (Node k v left right) | key == k  = Node k value left right
-                              | key <= k  = undefined
-                              | otherwise = undefined
+                              | key <= k  = Node k v (f left) right
+                              | otherwise = Node k v left (f right)
 
 -- Exercise 9
 
