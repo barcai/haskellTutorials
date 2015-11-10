@@ -94,28 +94,39 @@ prop_toList_fromList_sorted xs ys = toList (fromList zs) == sort zs
 filterLT :: Ord k => k -> Keymap k a -> Keymap k a
 filterLT _ Leaf = Leaf
 filterLT key (Node k v left right)
-  | key == k = Node k v (filterLT key left) Leaf
-  | key <= k = filterLT key left
-  | otherwise = Node k v (filterLT key left) (filterLT key right)
+  | key == k    = Node k v (filterLT key left) Leaf
+  | key <= k    = filterLT key left
+  | otherwise   = Node k v (filterLT key left) (filterLT key right)
 
 filterGT :: Ord k => k -> Keymap k a -> Keymap k a
 filterGT _ Leaf = Leaf
 filterGT key (Node k v left right)
-  | key == k = Node k v Leaf (filterGT key right)
-  | key >= k = filterGT key right
-  | otherwise = Node k v (filterGT key left) (filterGT key right)
+  | key == k    = Node k v Leaf (filterGT key right)
+  | key >= k    = filterGT key right
+  | otherwise   = Node k v (filterGT key left) (filterGT key right)
 
 -- Exercise 13
 
 merge :: Ord k => Keymap k a -> Keymap k a -> Keymap k a
-merge = undefined
+merge tree1 tree2 = fromList $ (toList tree1) ++ (toList tree2)
+
+-- Quickcheck does not work
+-- prop_merge :: (Ord k, Eq a) => Keymap k a -> Keymap k a -> Bool
+-- prop_merge tree1 tree2 = (toList (merge tree1 tree2)) == sort . nub ((toList tree1) ++ (toList tree2))
 
 -- Exercise 14
 
-del :: Ord k => k -> Keymap k a -> Keymap k a
-del = undefined
+del :: (Ord k, Eq a) => k -> Keymap k a -> Keymap k a
+del _ Leaf = Leaf
+del key (Node k v left right)
+  | (get key (Node k v left right)) == Nothing = (Node k v left right)
+  | key == k                                   = merge left right
+  | otherwise                                  = (Node k v (del key left) (del key right))
 
 -- Exercise 15
 
 select :: Ord k => (a -> Bool) -> Keymap k a -> Keymap k a
-select = undefined 
+select _ Leaf = Leaf
+select f (Node k v left right) 
+  | f v       = (Node k v (select f left) (select f right))
+  | otherwise = merge (select f left) (select f right)
