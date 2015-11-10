@@ -22,6 +22,7 @@ import Data.List
 
 data Keymap k a = Leaf
                 | Node k a (Keymap k a) (Keymap k a)
+                deriving (Show)
 
 -- A test tree
 
@@ -91,10 +92,18 @@ prop_toList_fromList_sorted xs ys = toList (fromList zs) == sort zs
 -- Exercise 12
 
 filterLT :: Ord k => k -> Keymap k a -> Keymap k a
-filterLT = undefined
+filterLT _ Leaf = Leaf
+filterLT key (Node k v left right)
+  | key == k = Node k v (filterLT key left) Leaf
+  | key <= k = filterLT key left
+  | otherwise = Node k v (filterLT key left) (filterLT key right)
 
 filterGT :: Ord k => k -> Keymap k a -> Keymap k a
-filterGT = undefined
+filterGT _ Leaf = Leaf
+filterGT key (Node k v left right)
+  | key == k = Node k v Leaf (filterGT key right)
+  | key >= k = filterGT key right
+  | otherwise = Node k v (filterGT key left) (filterGT key right)
 
 -- Exercise 13
 
