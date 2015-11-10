@@ -72,7 +72,8 @@ prop_set_get k v = get k (set k v testTree) == Just v
 -- Exercise 10
 
 fromList :: Ord k => [(k,a)] -> Keymap k a
-fromList = undefined
+fromList [] = Leaf
+fromList ((k,a): list) = set k a (fromList list)
 
 
 prop_toList_fromList :: [Int] -> [Int] -> Bool
