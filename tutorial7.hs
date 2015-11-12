@@ -22,12 +22,15 @@ join [] = Sit
 join (command:list) = command :#: join list
 
 -- 1c  equivalent
-equivalent = undefined
+equivalent :: Command -> Command -> Bool
+equivalent com1 com2 = (split com1) == (split com2)
 
 -- 1d. testing join and split
-prop_split_join = undefined
+prop_split_join :: Command -> Bool
+prop_split_join command = equivalent (join (split command)) command
 
-prop_split = undefined
+prop_split :: Command -> Bool
+prop_split command = not (Sit `elem` (split command))
 
 
 -- Exercise 2
