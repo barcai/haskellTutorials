@@ -36,15 +36,16 @@ prop_split command = not (Sit `elem` (split command))
 -- Exercise 2
 -- 2a. copy
 copy :: Int -> Command -> Command
-copy = undefined
+copy 1 command = command
+copy n command = command :#: (copy (n-1) command)
 
 -- 2b. pentagon
 pentagon :: Distance -> Command
-pentagon = undefined
+pentagon d = copy 5 (Go d :#: Turn 72)
 
 -- 2c. polygon
 polygon :: Distance -> Int -> Command
-polygon = undefined
+polygon d n = copy n (Go d :#: Turn (360 / (fromIntegral n)))
 
 
 
