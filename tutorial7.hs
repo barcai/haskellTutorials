@@ -11,7 +11,10 @@ import Test.QuickCheck
 
 -- 1a. split
 split :: Command -> [Command]
-split = undefined
+split Sit = []
+split (Go d) = (Go d):[]
+split (Turn a) = (Turn a):[]
+split (com1 :#: com2) = (split com1) ++ (split com2)
 
 -- 1b. join
 join :: [Command] -> Command
