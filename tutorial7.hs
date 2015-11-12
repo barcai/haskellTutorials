@@ -18,7 +18,8 @@ split (com1 :#: com2) = (split com1) ++ (split com2)
 
 -- 1b. join
 join :: [Command] -> Command
-join = undefined
+join [] = Sit
+join (command:list) = command :#: join list
 
 -- 1c  equivalent
 equivalent = undefined
