@@ -18,7 +18,7 @@ split (com1 :#: com2) = (split com1) ++ (split com2)
 
 -- 1b. join
 join :: [Command] -> Command
-join [] = Sit
+join (command:[]) = command
 join (command:list) = command :#: join list
 
 -- 1c  equivalent
@@ -59,7 +59,19 @@ spiral distance n step angle = (Go distance) :#: (Turn angle) :#: spiral (distan
 -- Exercise 4
 -- optimise
 optimise :: Command -> Command
-optimise = undefined
+optimise command = join . opt $ split command
+    where
+    	opt (Go 0 : restOfList) = opt restOfList
+        opt (Turn 0 : restOfList) = opt restOfList
+        opt (Turn a : Turn b : restOfList) = opt (Turn (a+b) : restOfList)
+        opt (Go a : Go b : restOfList) = opt (Go (a+b) : restOfList)
+        opt (somethingElse : restOfList) = somethingElse : opt restOfList
+        opt [] = []
+
+optimiseRight :: Command -> Command
+optimiseRight command 
+    | equivalent (optimise command) (optimise (optimise command)) = optimise command
+    | otherwise = optimise $ optimise command
 
 
 
