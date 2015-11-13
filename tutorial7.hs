@@ -52,7 +52,8 @@ polygon d n = copy n (Go d :#: Turn (360 / (fromIntegral n)))
 -- Exercise 3
 -- spiral
 spiral :: Distance -> Int -> Distance -> Angle -> Command
-spiral = undefined
+spiral distance 1 _ angle    = (Go distance) :#: (Turn angle)
+spiral distance n step angle = (Go distance) :#: (Turn angle) :#: spiral (distance + step) (n-1) step angle
 
 
 -- Exercise 4
