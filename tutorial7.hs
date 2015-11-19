@@ -79,7 +79,14 @@ optimiseRight command
 
 -- 5. arrowhead
 arrowhead :: Int -> Command
-arrowhead = undefined
+arrowhead x = f x
+    where
+    	f 0 = GrabPen red :#: Go 10
+    	f i = g (i-1) :#: p :#: f (i-1) :#: p :#: g (i-1)
+    	g 0 = GrabPen blue :#: Go 10
+    	g i = f (i-1) :#: n :#: g (i-1) :#: n :#: f (i-1)
+    	p = Turn 60
+    	n = Turn (-60)
 
 -- 6. snowflake
 snowflake :: Int -> Command
