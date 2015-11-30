@@ -74,7 +74,10 @@ trans  (_, _, _, _, x) = x
 
 -- 2.
 delta :: (Eq q) => FSM q -> q -> Char -> [q]
-delta = undefined
+delta (_, _, _, _, []) _ _ = []
+delta (a, b, c, d, ((src,chr,dest):transitions) ) source symbol
+    | src == source && chr == symbol = dest : (delta (a, b, c, d, transitions) (source) (symbol))
+    | otherwise = (delta (a, b, c, d, transitions) source symbol)
 
 
 -- 3.
