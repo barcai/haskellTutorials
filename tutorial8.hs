@@ -121,7 +121,7 @@ dfinal nfsm superstates = [superstate | superstate <- superstates, or [fin `elem
 
 -- 9.
 dtrans :: (Ord q) => FSM q -> [[q]] -> [Transition [q]]
-dtrans = undefined
+dtrans nfsm superstates = sort $ concat [[(superstate, symbol, (ddelta nfsm superstate symbol))| superstate <- superstates] | symbol <- (alph nfsm)]
 
 
 -- 10.
