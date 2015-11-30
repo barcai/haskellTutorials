@@ -104,7 +104,7 @@ ddelta nfsm superstate symbol = canonical (d nfsm superstate symbol)
 
 -- 6.
 next :: (Ord q) => FSM q -> [[q]] -> [[q]]
-next = undefined
+next nfsm superstates = canonical $ superstates ++ (concat [[ddelta nfsm state symbol | state <- superstates]| symbol <- (alph nfsm)])
 
 
 -- 7.
