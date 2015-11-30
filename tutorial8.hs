@@ -126,6 +126,14 @@ dtrans nfsm superstates = sort $ concat [[(superstate, symbol, (ddelta nfsm supe
 
 -- 10.
 deterministic :: (Ord q) => FSM q -> FSM [q]
+deterministic nfsm = 
+  (universe,
+  alph nfsm,
+  [start nfsm],
+  dfinal nfsm universe,
+  dtrans nfsm universe)
+    where
+      universe = reachable nfsm [[start nfsm]]
 
 
 -- Optional Material
@@ -206,6 +214,5 @@ prop1 a b = star ((aut a') `unionFSM` (aut b')) `accepts` (a'++b'++a'++a')
 prop2 a b = ((aut a') `intersectFSM` (intFSM ((aut b') `unionFSM` (aut a')))) `accepts` a'
              where a' = safeString a
                    b' = safeString b
-deterministic = undefined
 
 
