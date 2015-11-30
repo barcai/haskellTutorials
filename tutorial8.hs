@@ -91,7 +91,7 @@ accepts m xs = acceptsFrom m (start m) xs
 
 -- 4.
 canonical :: (Ord q) => [q] -> [q]
-canonical = undefined
+canonical = sort . nub
 
 
 -- 5.
