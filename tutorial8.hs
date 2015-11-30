@@ -109,7 +109,9 @@ next nfsm superstates = canonical $ superstates ++ (concat [[ddelta nfsm state s
 
 -- 7.
 reachable :: (Ord q) => FSM q -> [[q]] -> [[q]]
-reachable = undefined
+reachable nfsm superstates
+    | next nfsm superstates == superstates = next nfsm superstates
+    | otherwise = reachable nfsm (next nfsm superstates)
 
 
 -- 8.
