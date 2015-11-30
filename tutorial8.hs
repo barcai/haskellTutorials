@@ -116,7 +116,7 @@ reachable nfsm superstates
 
 -- 8.
 dfinal :: (Ord q) => FSM q -> [[q]] -> [[q]]
-dfinal = undefined
+dfinal nfsm superstates = [superstate | superstate <- superstates, or [fin `elem` superstate| fin <- (final nfsm)]]
 
 
 -- 9.
