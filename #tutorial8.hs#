@@ -1,4 +1,4 @@
--- Informatics 1 - Functional Programming 
+:r-- Informatics 1 - Functional Programming 
 -- Tutorial 8
 --
 -- Week 11 - due: 3/4 Dec.
@@ -86,7 +86,7 @@ accepts m xs = acceptsFrom m (start m) xs
     where
       acceptsFrom :: (Eq q) => FSM q -> q -> String -> Bool
       acceptsFrom m q [] = q `elem` final m
-      acceptsFrom m q (x:xs) = or [acceptsFrom m y xs | y <- (delta m q x)]
+      acceptsFrom m q (x:xs) = acceptsFrom m (delta m q x) xs
 
 
 -- 4.
