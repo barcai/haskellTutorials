@@ -65,11 +65,11 @@ final  :: FSM q -> [q]
 trans  :: FSM q -> [Transition q]
 
 
-states = undefined
-alph   = undefined
-start  = undefined
-final  = undefined
-trans  = undefined
+states (x, _, _, _, _) = x
+alph   (_, x, _, _, _) = x
+start  (_, _, x, _, _) = x
+final  (_, _, _, x, _) = x
+trans  (_, _, _, _, x) = x
 
 
 -- 2.
