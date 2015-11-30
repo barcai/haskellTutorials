@@ -96,7 +96,10 @@ canonical = sort . nub
 
 -- 5.
 ddelta :: (Ord q) => FSM q -> [q] -> Char -> [q]
-ddelta = undefined
+ddelta nfsm superstate symbol = canonical (d nfsm superstate symbol)
+  where
+    d _ [] _ = []
+    d m (state:super) sym = delta m state symbol ++ d m super symbol
 
 
 -- 6.
