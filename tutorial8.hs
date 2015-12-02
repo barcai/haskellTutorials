@@ -139,7 +139,11 @@ deterministic nfsm =
 -- Optional Material
 --11.
 aut :: String -> FSM Int
-aut str = undefined
+aut input = ([0..(length input)],
+    ['a'..'z'],
+    0,
+    [(length input)],
+    [((state-1), input !! (state-1), state) | state <- [1..(length input)]])
 
 
 -- For quickCheck
