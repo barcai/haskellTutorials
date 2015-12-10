@@ -79,9 +79,21 @@ instance Arbitrary Prop where
 -- 3a
 
 eval :: Prop -> Bool -> Bool
-eval =  undefined
+eval X bool = bool
+eval T _ = True
+eval F _ = False
+eval (Not p) bool = not (eval p bool)
+eval (p :|: q) bool = (eval p bool) || (eval q bool)
 
 -- 3b
 
 simplify :: Prop -> Prop
-simplify =  undefined
+simplify (Not T) = F
+simplify (Not F) = T
+simplify (Not (Not p)) = simplify p
+simplify (T :|: p) = T
+simplify (F :|: p) = simplify p
+simplify (p :|: T) = T
+simplify (p :|: F) = simplify p
+simplify (p :|: q) = if p == q then simplify p else simplify p :|: simplify q
+simplify p = p
