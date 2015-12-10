@@ -12,12 +12,14 @@ import Control.Monad -- defines liftM, liftM2, used below
 -- 1a
 
 f :: Int -> [Int] -> [Int]
-f =  undefined
+f rep list = [if even y then 0 else x | (x,y) <- zip list [0..]]
 
 -- 1b
 
 g :: Int -> [Int] -> [Int]
-g =  undefined
+g _ [] = []
+g rep [x] = [rep]
+g rep (x:y:xs) = rep : y : (g rep xs)
 
 -- Question 2
 
