@@ -26,17 +26,20 @@ g rep (x:y:xs) = rep : y : (g rep xs)
 -- 2a
 
 p :: [Int] -> Bool
-p =  undefined
+p list = and [if (x `elem` [10..100] && odd x) then False else True | x <- list]
 
 -- 2b
 
 q :: [Int] -> Bool
-q =  undefined
+q [] = True
+q (x:xs)
+    | x >= 10 && x <= 100 && odd x = False
+    | otherwise = q xs
 
 -- 2c
 
 r :: [Int] -> Bool
-r =  undefined
+r list = foldr (&&) True (map even (filter (`elem` [10..100]) list))
 
 -- Question 3
 
